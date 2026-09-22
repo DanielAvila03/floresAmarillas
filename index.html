@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flores Amarillas para Ti Mi Amor</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Great Vibes, Playfair Display, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:ital,wght@0,300;0,400;0,600;1,300&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            cursive: ['"Great Vibes"', 'cursive'],
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Montserrat"', 'sans-serif'],
+          },
+          colors: {
+            sunflower: {
+              100: '#fffbeb',
+              200: '#fef3c7',
+              300: '#fde68a',
+              400: '#facc15',
+              500: '#eab308',
+              600: '#ca8a04',
+              700: '#a16207',
+            },
+            golden: '#f59e0b',
+            amberDark: '#1c1304',
+          },
+          animation: {
+            'float-slow': 'floating 6s ease-in-out infinite',
+            'float-delayed': 'floating 7s ease-in-out 2s infinite',
+            'pulse-glow': 'pulseGlow 2.5s infinite',
+            'sway': 'swaying 4s ease-in-out infinite alternate',
+          },
+          keyframes: {
+            floating: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-12px) rotate(2deg)' },
+            },
+            swaying: {
+              '0%': { transform: 'rotate(-2.5deg)' },
+              '100%': { transform: 'rotate(2.5deg)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(250, 204, 21, 0.4), 0 0 45px rgba(234, 179, 8, 0.2)' },
+              '50%': { boxShadow: '0 0 35px rgba(250, 204, 21, 0.8), 0 0 70px rgba(234, 179, 8, 0.4)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom scrollbar and 3D card perspectives */
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background-color: #0c0803;
+      color: #fef9c3;
+      overflow-x: hidden;
+    }
+
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+
+    /* Glassmorphism subtle backdrop */
+    .glass-card {
+      background: rgba(30, 20, 10, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(250, 204, 21, 0.25);
+    }
+    .glass-parchment {
+      background: radial-gradient(circle at center, rgba(255, 252, 235, 0.95) 0%, rgba(254, 243, 199, 0.92) 100%);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 60px rgba(217, 119, 6, 0.15);
+    }
+
+    /* Stem and leaf growth animation */
+    @keyframes bloomGrow {
+      0% {
+        transform: scale(0.2) rotate(-15deg);
+        opacity: 0;
+      }
+      80% {
+        transform: scale(1.08) rotate(3deg);
+      }
+      100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+    .blooming-flower {
+      animation: bloomGrow 2.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      transform-origin: bottom center;
+    }
+
+    /* Floating action button glow */
+    .btn-magic {
+      background: linear-gradient(135deg, #facc15 0%, #d97706 100%);
+      box-shadow: 0 0 25px rgba(250, 204, 21, 0.5);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-magic:hover {
+      box-shadow: 0 0 40px rgba(250, 204, 21, 0.85);
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    /* Radial romantic background overlay */
+    .ambient-bg {
+      background: radial-gradient(circle at 50% 20%, rgba(234, 179, 8, 0.15) 0%, rgba(12, 8, 3, 0.8) 60%, rgba(10, 6, 2, 1) 100%);
+    }
+
+    /* Bursting petals effect on tap */
+    .tap-flower {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      animation: popAndFade 1.6s ease-out forwards;
+    }
+    @keyframes popAndFade {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+      }
+      50% {
+        transform: translate(-50%, -80px) scale(1.3) rotate(25deg);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translate(-50%, -130px) scale(1) rotate(50deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body class="relative min-h-screen selection:bg-yellow-500 selection:text-black font-sans ambient-bg">
+
+  <!-- Ambient canvas for falling petals, golden sparkles and fireflies -->
+  <canvas id="petalsCanvas" class="fixed inset-0 pointer-events-none z-10 w-full h-full"></canvas>
+
+  <!-- Floating Top Sound & Sparkle Controls -->
+  <div class="fixed top-4 right-4 z-40 flex items-center space-x-3">
+    <button id="musicToggleBtn" class="glass-card text-yellow-300 hover:text-yellow-100 p-3 rounded-full shadow-lg transition-transform hover:scale-110 flex items-center gap-2 border border-yellow-500/40" title="Música Romántica">
+      <i data-lucide="music" class="w-5 h-5 text-yellow-400"></i>
+      <span id="musicStatusText" class="text-xs font-semibold pr-1 hidden sm:inline">Música: Pausada</span>
+    </button>
+  </div>
+
+  <!-- Welcome / Envelope Modal (First Impression) -->
+  <div id="introScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md px-4 transition-opacity duration-1000">
+    <div class="relative max-w-md w-full text-center p-8 rounded-3xl glass-card border-yellow-500/50 shadow-2xl animate-float-slow">
+      
+      <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-tr from-yellow-500 to-amber-300 flex items-center justify-center text-amber-950 shadow-[0_0_35px_rgba(250,204,21,0.6)] animate-pulse-glow">
+        <i data-lucide="heart" class="w-10 h-10 fill-current"></i>
+      </div>
+
+      <p class="font-cursive text-3xl sm:text-4xl text-yellow-300 mb-1">Para la niña que ilumina mi vida</p>
+      <h1 class="font-serif text-2xl sm:text-3xl font-bold text-white mb-4 tracking-wide">¿Tienes un momento para mí?</h1>
+      <p class="text-sm text-yellow-100/80 mb-6 leading-relaxed">
+        Hoy te entrego un detalle que nunca se marchita, lleno de todo mi amor, luz y felicidad para ti.
+      </p>
+
+      <button id="openSurpriseBtn" class="btn-magic w-full py-4 px-6 rounded-2xl text-amber-950 font-bold text-lg tracking-wider uppercase flex items-center justify-center gap-3 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-yellow-400/50">
+        <i data-lucide="sparkles" class="w-5 h-5"></i>
+        <span>Recibir mis Flores Amarillas</span>
+        <i data-lucide="sparkles" class="w-5 h-5"></i>
+      </button>
+
+      <p class="text-xs text-yellow-300/60 mt-4 italic flex items-center justify-center gap-1">
+        <i data-lucide="volume-2" class="w-3.5 h-3.5"></i>
+        Conéctate con audífonos o sube el volumen para sentir la magia
+      </p>
+    </div>
+  </div>
+
+  <main id="mainContent" class="relative z-20 opacity-0 transition-opacity duration-1000 pb-28">
+
+    <!-- Hero Title -->
+    <header class="pt-12 md:pt-20 pb-8 text-center px-4 max-w-4xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-300 text-xs sm:text-sm font-medium mb-4 backdrop-blur-sm">
+        <i data-lucide="sun" class="w-4 h-4 text-yellow-400 animate-spin" style="animation-duration: 12s;"></i>
+        <span>Promesa de amor eterno</span>
+        <i data-lucide="heart" class="w-3.5 h-3.5 text-yellow-400 fill-current"></i>
+      </div>
+
+      <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-400 to-amber-500 leading-tight mb-2 drop-shadow-md">
+        Flores Amarillas
+      </h1>
+      <p class="font-cursive text-3xl sm:text-5xl text-yellow-300/90 tracking-wide mt-1">
+        para el amor más puro de mi vida
+      </p>
+
+      <p class="mt-4 max-w-xl mx-auto text-yellow-100/70 text-sm sm:text-base font-light">
+        Dicen que regalar flores amarillas significa desearle felicidad, lealtad y luz a quien amas. Hoy te las regalo porque tú eres mi sol de cada día.
+      </p>
+    </header>
+
+    <!-- Sunflower & Flowers Visual Centerpiece (Vector Masterpiece) -->
+    <section class="relative max-w-2xl mx-auto px-4 py-6 flex flex-col items-center justify-center">
+      
+      <!-- Glowing aura back of the bouquet -->
+      <div class="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gradient-to-tr from-yellow-500/20 to-amber-600/10 filter blur-3xl -z-10 animate-pulse-glow"></div>
+
+      <!-- Main Animated SVG Bouquet -->
+      <div class="relative w-full max-w-md aspect-square flex items-center justify-center animate-sway">
+        <svg viewBox="0 0 500 500" class="w-full h-full filter drop-shadow-[0_15px_30px_rgba(234,179,8,0.35)]" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Petal Gradients -->
+            <linearGradient id="petalGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#fff066" />
+              <stop offset="60%" stop-color="#facc15" />
+              <stop offset="100%" stop-color="#ca8a04" />
+            </linearGradient>
+
+            <linearGradient id="petalGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fef08a" />
+              <stop offset="70%" stop-color="#eab308" />
+              <stop offset="100%" stop-color="#b45309" />
+            </linearGradient>
+
+            <!-- Stem Gradients -->
+            <linearGradient id="stemGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#15803d" />
+              <stop offset="50%" stop-color="#22c55e" />
+              <stop offset="100%" stop-color="#166534" />
+            </linearGradient>
+
+            <!-- Center Disc Pattern & Gradient -->
+            <radialGradient id="centerGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#451a03" />
+              <stop offset="65%" stop-color="#78350f" />
+              <stop offset="85%" stop-color="#b45309" />
+              <stop offset="100%" stop-color="#eab308" />
+            </radialGradient>
+
+            <!-- Ribbon Gradient -->
+            <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fef08a" />
+              <stop offset="50%" stop-color="#f59e0b" />
+              <stop offset="100%" stop-color="#b45309" />
+            </linearGradient>
+          </defs>
+
+          <!-- Stems -->
+          <g id="stemsGroup" stroke-linecap="round">
+            <!-- Center Stem -->
+            <path d="M250,470 Q252,380 250,250" stroke="url(#stemGrad)" stroke-width="12" fill="none" />
+            <!-- Left Stem -->
+            <path d="M250,470 Q210,390 160,260" stroke="url(#stemGrad)" stroke-width="9" fill="none" />
+            <!-- Right Stem -->
+            <path d="M250,470 Q290,390 340,270" stroke="url(#stemGrad)" stroke-width="9" fill="none" />
+            <!-- Little Extra Stems -->
+            <path d="M250,470 Q180,410 110,340" stroke="url(#stemGrad)" stroke-width="7" fill="none" />
+            <path d="M250,470 Q320,410 390,340" stroke="url(#stemGrad)" stroke-width="7" fill="none" />
+          </g>
+
+          <!-- Lush Green Leaves -->
+          <g id="leavesGroup">
+            <path d="M245,390 C180,390 140,350 150,330 C180,330 220,360 248,380 Z" fill="#15803d" opacity="0.95" />
+            <path d="M255,370 C320,360 360,320 350,300 C320,305 280,335 252,360 Z" fill="#166534" opacity="0.95" />
+            <path d="M248,420 C190,440 150,430 160,400 C190,400 220,410 248,415 Z" fill="#14532d" />
+          </g>
+
+          <!-- Left Yellow Daisy / Little Sunflower -->
+          <g class="blooming-flower" style="animation-delay: 0.3s; transform-origin: 160px 260px;">
+            <g transform="translate(160, 260)">
+              <!-- 12 Petals around -->
+              <g id="miniPetalsLeft">
+                <circle cx="0" cy="-45" r="14" fill="url(#petalGrad1)" />
+                <circle cx="22" cy="-38" r="14" fill="url(#petalGrad1)" />
+                <circle cx="38" cy="-22" r="14" fill="url(#petalGrad1)" />
+                <circle cx="45" cy="0" r="14" fill="url(#petalGrad1)" />
+                <circle cx="38" cy="22" r="14" fill="url(#petalGrad1)" />
+                <circle cx="22" cy="38" r="14" fill="url(#petalGrad1)" />
+                <circle cx="0" cy="45" r="14" fill="url(#petalGrad1)" />
+                <circle cx="-22" cy="38" r="14" fill="url(#petalGrad1)" />
+                <circle cx="-38" cy="22" r="14" fill="url(#petalGrad1)" />
+                <circle cx="-45" cy="0" r="14" fill="url(#petalGrad1)" />
+                <circle cx="-38" cy="-22" r="14" fill="url(#petalGrad1)" />
+                <circle cx="-22" cy="-38" r="14" fill="url(#petalGrad1)" />
+              </g>
+              <circle cx="0" cy="0" r="28" fill="url(#centerGrad)" />
+              <circle cx="0" cy="0" r="24" fill="#582405" />
+              <!-- Floral core seeds -->
+              <circle cx="-6" cy="-6" r="3" fill="#facc15" opacity="0.7" />
+              <circle cx="7" cy="4" r="3" fill="#facc15" opacity="0.7" />
+              <circle cx="-4" cy="8" r="2.5" fill="#facc15" opacity="0.6" />
+            </g>
+          </g>
+
+          <!-- Right Yellow Daisy -->
+          <g class="blooming-flower" style="animation-delay: 0.6s; transform-origin: 340px 270px;">
+            <g transform="translate(340, 270)">
+              <g id="miniPetalsRight">
+                <circle cx="0" cy="-45" r="14" fill="url(#petalGrad2)" />
+                <circle cx="22" cy="-38" r="14" fill="url(#petalGrad2)" />
+                <circle cx="38" cy="-22" r="14" fill="url(#petalGrad2)" />
+                <circle cx="45" cy="0" r="14" fill="url(#petalGrad2)" />
+                <circle cx="38" cy="22" r="14" fill="url(#petalGrad2)" />
+                <circle cx="22" cy="38" r="14" fill="url(#petalGrad2)" />
+                <circle cx="0" cy="45" r="14" fill="url(#petalGrad2)" />
+                <circle cx="-22" cy="38" r="14" fill="url(#petalGrad2)" />
+                <circle cx="-38" cy="22" r="14" fill="url(#petalGrad2)" />
+                <circle cx="-45" cy="0" r="14" fill="url(#petalGrad2)" />
+                <circle cx="-38" cy="-22" r="14" fill="url(#petalGrad2)" />
+                <circle cx="-22" cy="-38" r="14" fill="url(#petalGrad2)" />
+              </g>
+              <circle cx="0" cy="0" r="28" fill="url(#centerGrad)" />
+              <circle cx="0" cy="0" r="24" fill="#582405" />
+              <circle cx="5" cy="-5" r="3" fill="#facc15" opacity="0.7" />
+              <circle cx="-6" cy="5" r="3" fill="#facc15" opacity="0.7" />
+            </g>
+          </g>
+
+          <!-- Small Accent Flowers -->
+          <g transform="translate(100, 330) scale(0.65)" class="blooming-flower" style="animation-delay: 0.9s;">
+            <circle cx="0" cy="-30" r="15" fill="#fef08a" />
+            <circle cx="25" cy="-10" r="15" fill="#fde047" />
+            <circle cx="20" cy="25" r="15" fill="#facc15" />
+            <circle cx="-20" cy="25" r="15" fill="#eab308" />
+            <circle cx="-25" cy="-10" r="15" fill="#fde047" />
+            <circle cx="0" cy="0" r="16" fill="#713f12" />
+          </g>
+
+          <g transform="translate(400, 335) scale(0.65)" class="blooming-flower" style="animation-delay: 1.1s;">
+            <circle cx="0" cy="-30" r="15" fill="#fef08a" />
+            <circle cx="25" cy="-10" r="15" fill="#fde047" />
+            <circle cx="20" cy="25" r="15" fill="#facc15" />
+            <circle cx="-20" cy="25" r="15" fill="#eab308" />
+            <circle cx="-25" cy="-10" r="15" fill="#fde047" />
+            <circle cx="0" cy="0" r="16" fill="#713f12" />
+          </g>
+
+          <!-- Central Grand Sunflower -->
+          <g class="blooming-flower" style="animation-delay: 0.1s; transform-origin: 250px 200px;">
+            <g transform="translate(250, 200)">
+              
+              <!-- Back Petal Ring (24 layered elongated petals) -->
+              <g opacity="0.95">
+                <ellipse cx="0" cy="-85" rx="19" ry="50" fill="url(#petalGrad2)" transform="rotate(0)" />
+                <ellipse cx="0" cy="-85" rx="19" ry="50" fill="url(#petalGrad2)" transform="rotate(22.5)" />
+                <ellipse cx="0" cy="-85" rx="19" ry="50" fill="url(#petalGrad2)" transform="rotate(45)" />
+                <ellipse cx="0" cy="-85" rx="19" ry="50" fill="url(#petalGrad2)" transform="rotate(67.5)" />
+                <ellipse cx="0" cy="-85" rx="19" ry="50" fill="url(#petalGrad2)" transform="rotate(90)" />
+                <ellipse cx="0" cy="-85" rx="19" ry="50" fill="url(#petalGrad2)" transform="rotate(112.5)" />
+                <ellipse cx="0" cy="-85" rx="19" ry="50" fill="url(#petalGrad2)" transform="rotate(135)" />
+                <ellipse cx="0" cy="-85" rx="19" ry="50" fill="url(#petalGrad2)" transform="rotate(157.5)" />
+                <ellipse cx="0" cy="-85" rx="19" ry="50" fill="url(#petalGrad2)" transform="rotate(180)" />
+                <ellipse cx="0" cy="-85" rx="19" ry="50" fill="url(#petalGrad2)" transform="rotate(202.5)" />
+                <ellipse cx="0" cy="-85" rx="19" ry="50" fill="url(#petalGrad2)" transform="rotate(225)" />
+                <ellipse cx="0" cy="-85" rx="19" ry="50" fill="url(#petalGrad2)" transform="rotate(247.5)" />
+                <ellipse cx="0" cy="-85" rx="19" ry="50" fill="url(#petalGrad2)" transform="rotate(270)" />
+                <ellipse cx="0" cy="-85" rx="19" ry="50" fill="url(#petalGrad2)" transform="rotate(292.5)" />
+                <ellipse cx="0" cy="-85" rx="19" ry="50" fill="url(#petalGrad2)" transform="rotate(315)" />
+                <ellipse cx="0" cy="-85" rx="19" ry="50" fill="url(#petalGrad2)" transform="rotate(337.5)" />
+              </g>
+
+              <!-- Front Vibrant Petal Ring (Offset) -->
+              <g>
+                <ellipse cx="0" cy="-78" rx="16" ry="44" fill="url(#petalGrad1)" transform="rotate(11.25)" />
+                <ellipse cx="0" cy="-78" rx="16" ry="44" fill="url(#petalGrad1)" transform="rotate(33.75)" />
+                <ellipse cx="0" cy="-78" rx="16" ry="44" fill="url(#petalGrad1)" transform="rotate(56.25)" />
+                <ellipse cx="0" cy="-78" rx="16" ry="44" fill="url(#petalGrad1)" transform="rotate(78.75)" />
+                <ellipse cx="0" cy="-78" rx="16" ry="44" fill="url(#petalGrad1)" transform="rotate(101.25)" />
+                <ellipse cx="0" cy="-78" rx="16" ry="44" fill="url(#petalGrad1)" transform="rotate(123.75)" />
+                <ellipse cx="0" cy="-78" rx="16" ry="44" fill="url(#petalGrad1)" transform="rotate(146.25)" />
+                <ellipse cx="0" cy="-78" rx="16" ry="44" fill="url(#petalGrad1)" transform="rotate(168.75)" />
+                <ellipse cx="0" cy="-78" rx="16" ry="44" fill="url(#petalGrad1)" transform="rotate(191.25)" />
+                <ellipse cx="0" cy="-78" rx="16" ry="44" fill="url(#petalGrad1)" transform="rotate(213.75)" />
+                <ellipse cx="0" cy="-78" rx="16" ry="44" fill="url(#petalGrad1)" transform="rotate(236.25)" />
+                <ellipse cx="0" cy="-78" rx="16" ry="44" fill="url(#petalGrad1)" transform="rotate(258.75)" />
+                <ellipse cx="0" cy="-78" rx="16" ry="44" fill="url(#petalGrad1)" transform="rotate(281.25)" />
+                <ellipse cx="0" cy="-78" rx="16" ry="44" fill="url(#petalGrad1)" transform="rotate(303.75)" />
+                <ellipse cx="0" cy="-78" rx="16" ry="44" fill="url(#petalGrad1)" transform="rotate(326.25)" />
+                <ellipse cx="0" cy="-78" rx="16" ry="44" fill="url(#petalGrad1)" transform="rotate(348.75)" />
+              </g>
+
+              <!-- Sunflower Core Deep Center -->
+              <circle cx="0" cy="0" r="54" fill="url(#centerGrad)" />
+              <circle cx="0" cy="0" r="48" fill="#3b1704" />
+              
+              <!-- Core Texture Rings / Florets -->
+              <circle cx="0" cy="0" r="38" fill="none" stroke="#92400e" stroke-width="2.5" stroke-dasharray="4,3" />
+              <circle cx="0" cy="0" r="28" fill="none" stroke="#d97706" stroke-width="2" stroke-dasharray="3,3" />
+              <circle cx="0" cy="0" r="16" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="2,3" />
+              <circle cx="0" cy="0" r="6" fill="#fbbf24" opacity="0.9" />
+
+              <!-- Twinkling heart in the center of the sunflower -->
+              <path d="M0,-8 C3,-15 12,-12 12,-4 C12,4 0,11 0,11 C0,11 -12,4 -12,-4 C-12,-12 -3,-15 0,-8 Z" fill="#fef08a" opacity="0.85" />
+            </g>
+          </g>
+
+          <!-- Golden Silk Ribbon Bouquet Tie -->
+          <g id="ribbonGroup" transform="translate(250, 430)">
+            <path d="M-35,-8 Q0,-18 35,-8 Q25,12 0,10 Q-25,12 -35,-8 Z" fill="url(#ribbonGrad)" />
+            <!-- Ribbon knot -->
+            <circle cx="0" cy="0" r="11" fill="#f59e0b" />
+            <!-- Ribbon tails -->
+            <path d="M-5,5 Q-30,40 -40,70 Q-25,60 -5,20" fill="url(#ribbonGrad)" opacity="0.9" />
+            <path d="M5,5 Q30,40 40,70 Q25,60 5,20" fill="url(#ribbonGrad)" opacity="0.9" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- Interactive Bouquet Tap Hint -->
+      <div class="mt-2 flex items-center justify-center">
+        <button id="tapBouquetBtn" class="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-yellow-500/20 hover:bg-yellow-500/30 border border-yellow-400/40 text-yellow-200 text-xs sm:text-sm font-medium transition-all shadow-md">
+          <i data-lucide="sparkle" class="w-4 h-4 text-yellow-300 group-hover:rotate-45 transition-transform"></i>
+          <span>Toca aquí para esparcir polen de estrellas</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Romantic Parchment Love Letter -->
+    <section class="max-w-2xl mx-auto px-4 my-14">
+      <div class="relative glass-parchment rounded-3xl p-7 sm:p-10 text-stone-900 border border-amber-300/80 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        
+        <!-- Corner Floral Ornaments -->
+        <div class="absolute top-4 left-4 text-amber-600/40 select-none">
+          <i data-lucide="flower-2" class="w-8 h-8"></i>
+        </div>
+        <div class="absolute top-4 right-4 text-amber-600/40 select-none">
+          <i data-lucide="flower-2" class="w-8 h-8"></i>
+        </div>
+        <div class="absolute bottom-4 right-4 text-amber-600/30 select-none">
+          <i data-lucide="heart" class="w-7 h-7 fill-current"></i>
+        </div>
+
+        <p class="font-cursive text-3xl sm:text-4xl text-amber-800 text-center mb-1">
+          Mi Princesa Hermosa,
+        </p>
+        <p class="text-xs uppercase tracking-widest text-amber-700/80 text-center font-semibold mb-6">
+          Un regalo desde lo más profundo de mi corazón
+        </p>
+
+        <div class="space-y-4 font-sans text-stone-800 text-sm sm:text-base leading-relaxed">
+          <p>
+            Dicen que cada septiembre y en cada día especial, las flores amarillas representan un pacto de alegría, fidelidad inquebrantable y el deseo sincero de caminar juntos por siempre.
+          </p>
+          <p>
+            No quise darte flores que se marchitaran en unos días. Quería darte este rincón eterno que vivirá siempre en tu teléfono, en tu memoria y en nuestro amor. Cada pétalo amarillo refleja una de tus sonrisas, cada destello dorado representa lo afortunado que me siento al tenerte conmigo.
+          </p>
+          <p class="italic text-amber-900 font-serif border-l-2 border-amber-500 pl-4 py-1">
+            "Eres mi pensamiento favorito al despertar y la razón más bonita por la cual mi corazón late con tanta emoción."
+          </p>
+          <p>
+            Gracias por ser esa luz incondicional, por llenar mis días grises de colores cálidos y por enseñarme lo que significa amar de verdad. Estas flores amarillas son tuyas, hoy, mañana y siempre.
+          </p>
+        </div>
+
+        <div class="mt-8 text-right">
+          <p class="font-cursive text-3xl text-amber-900">Eternamente tuyo,</p>
+          <p class="font-semibold text-xs tracking-wider uppercase text-amber-700">El amor de tu vida ♥</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Reasons Why I Love You (Interactive 3D Flip Cards) -->
+    <section class="max-w-5xl mx-auto px-4 my-16">
+      <div class="text-center mb-10">
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-yellow-300">
+          Razones por las que te elijo cada día
+        </h2>
+        <p class="font-cursive text-2xl text-yellow-100/80 mt-1">
+          Toca cada tarjeta para descubrir un secreto de mi corazón
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Card 1 -->
+        <div class="flip-card perspective-1000 h-64 cursor-pointer" onclick="toggleCard(this)">
+          <div class="flip-card-inner relative w-full h-full duration-700 transform-style-3d transition-transform rounded-2xl shadow-xl">
+            <!-- Front -->
+            <div class="flip-card-front absolute inset-0 glass-card rounded-2xl p-6 flex flex-col justify-between items-center text-center backface-hidden border border-yellow-500/30">
+              <div class="w-12 h-12 rounded-full bg-yellow-500/20 text-yellow-300 flex items-center justify-center mt-3">
+                <i data-lucide="sun-medium" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <span class="text-xs uppercase tracking-wider text-yellow-400 font-bold">Razón #1</span>
+                <h3 class="font-serif text-xl text-yellow-100 font-semibold mt-1">Tu Sonrisa Radiante</h3>
+              </div>
+              <p class="text-xs text-yellow-300/70 flex items-center gap-1">
+                <span>Toca para ver</span>
+                <i data-lucide="arrow-right-left" class="w-3.5 h-3.5"></i>
+              </p>
+            </div>
+            <!-- Back -->
+            <div class="flip-card-back absolute inset-0 bg-gradient-to-br from-amber-600 to-yellow-600 rounded-2xl p-6 flex flex-col justify-center items-center text-center backface-hidden rotate-y-180 text-amber-950 shadow-inner">
+              <i data-lucide="heart" class="w-7 h-7 fill-current mb-2 text-yellow-200"></i>
+              <p class="font-serif text-base sm:text-lg font-bold text-white mb-2">Iluminas cualquier tormenta</p>
+              <p class="text-xs sm:text-sm text-yellow-100 font-medium leading-relaxed">
+                No importa qué tan pesado haya sido mi día, ver cómo se te achinan los ojos al sonreír me regresa la paz al instante.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="flip-card perspective-1000 h-64 cursor-pointer" onclick="toggleCard(this)">
+          <div class="flip-card-inner relative w-full h-full duration-700 transform-style-3d transition-transform rounded-2xl shadow-xl">
+            <!-- Front -->
+            <div class="flip-card-front absolute inset-0 glass-card rounded-2xl p-6 flex flex-col justify-between items-center text-center backface-hidden border border-yellow-500/30">
+              <div class="w-12 h-12 rounded-full bg-yellow-500/20 text-yellow-300 flex items-center justify-center mt-3">
+                <i data-lucide="sparkles" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <span class="text-xs uppercase tracking-wider text-yellow-400 font-bold">Razón #2</span>
+                <h3 class="font-serif text-xl text-yellow-100 font-semibold mt-1">Tu Dulce Corazón</h3>
+              </div>
+              <p class="text-xs text-yellow-300/70 flex items-center gap-1">
+                <span>Toca para ver</span>
+                <i data-lucide="arrow-right-left" class="w-3.5 h-3.5"></i>
+              </p>
+            </div>
+            <!-- Back -->
+            <div class="flip-card-back absolute inset-0 bg-gradient-to-br from-amber-600 to-yellow-600 rounded-2xl p-6 flex flex-col justify-center items-center text-center backface-hidden rotate-y-180 text-amber-950 shadow-inner">
+              <i data-lucide="heart" class="w-7 h-7 fill-current mb-2 text-yellow-200"></i>
+              <p class="font-serif text-base sm:text-lg font-bold text-white mb-2">Tu bondad sin límites</p>
+              <p class="text-xs sm:text-sm text-yellow-100 font-medium leading-relaxed">
+                Amo cómo te preocupas por los detalles, tu ternura al hablarme y el refugio tan cálido que encuentro en tus abrazos.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="flip-card perspective-1000 h-64 cursor-pointer" onclick="toggleCard(this)">
+          <div class="flip-card-inner relative w-full h-full duration-700 transform-style-3d transition-transform rounded-2xl shadow-xl">
+            <!-- Front -->
+            <div class="flip-card-front absolute inset-0 glass-card rounded-2xl p-6 flex flex-col justify-between items-center text-center backface-hidden border border-yellow-500/30">
+              <div class="w-12 h-12 rounded-full bg-yellow-500/20 text-yellow-300 flex items-center justify-center mt-3">
+                <i data-lucide="infinity" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <span class="text-xs uppercase tracking-wider text-yellow-400 font-bold">Razón #3</span>
+                <h3 class="font-serif text-xl text-yellow-100 font-semibold mt-1">Nuestro Futuro Juntos</h3>
+              </div>
+              <p class="text-xs text-yellow-300/70 flex items-center gap-1">
+                <span>Toca para ver</span>
+                <i data-lucide="arrow-right-left" class="w-3.5 h-3.5"></i>
+              </p>
+            </div>
+            <!-- Back -->
+            <div class="flip-card-back absolute inset-0 bg-gradient-to-br from-amber-600 to-yellow-600 rounded-2xl p-6 flex flex-col justify-center items-center text-center backface-hidden rotate-y-180 text-amber-950 shadow-inner">
+              <i data-lucide="heart" class="w-7 h-7 fill-current mb-2 text-yellow-200"></i>
+              <p class="font-serif text-base sm:text-lg font-bold text-white mb-2">Soñar a tu lado</p>
+              <p class="text-xs sm:text-sm text-yellow-100 font-medium leading-relaxed">
+                Porque cuando pienso en el futuro, no me imagino ningún lugar ni ninguna meta donde no estés tomada de mi mano.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Interactive Screen Flower Spawner Activation Banner -->
+    <section class="max-w-xl mx-auto px-4 text-center my-12">
+      <div class="p-6 rounded-3xl glass-card border border-yellow-500/40 relative overflow-hidden">
+        <div class="absolute -right-8 -bottom-8 opacity-10 text-yellow-300 pointer-events-none">
+          <i data-lucide="flower" class="w-40 h-40"></i>
+        </div>
+
+        <i data-lucide="wand-2" class="w-8 h-8 mx-auto text-yellow-400 mb-3 animate-bounce"></i>
+        <h3 class="font-serif text-2xl font-bold text-yellow-200">Haz florecer la pantalla</h3>
+        <p class="text-xs sm:text-sm text-yellow-100/70 my-3">
+          Toca o haz clic en cualquier lugar de esta pantalla para sembrar flores amarillas mágicas que bailarán solo para ti.
+        </p>
+
+        <button id="burstPetalsBtn" class="btn-magic px-6 py-2.5 rounded-full font-bold text-amber-950 text-xs sm:text-sm tracking-wide inline-flex items-center gap-2 cursor-pointer">
+          <i data-lucide="sparkle" class="w-4 h-4"></i>
+          ¡Lluvia dorada de amor!
+        </button>
+      </div>
+    </section>
+
+    <!-- Romantic Footer -->
+    <footer class="text-center pt-8 pb-4 text-yellow-400/60 text-xs flex flex-col items-center gap-1">
+      <div class="flex items-center gap-1.5 text-yellow-400 font-medium">
+        <span>Hecho con todo mi corazón para ti</span>
+        <i data-lucide="heart" class="w-4 h-4 text-amber-500 fill-current"></i>
+      </div>
+      <p class="text-[11px] text-yellow-300/40 font-mono">Tus flores amarillas que nunca se marchitan • Por siempre</p>
+    </footer>
+
+  </main>
+
+  <script>
+    /* Initialize Lucide Icons */
+    lucide.createIcons();
+
+    /* =========================================================
+       WEB AUDIO API: Romantic Music Box & Piano Melody Synthesizer
+       Zero external audio assets. Works completely offline & in-browser.
+       ========================================================= */
+    class RomanticAudioEngine {
+      constructor() {
+        this.ctx = null;
+        this.isPlaying = false;
+        this.timer = null;
+        this.step = 0;
+        
+        // Gentle romantic melody in F Major / D minor (notes frequencies)
+        // A sweet, gentle music-box waltz
+        this.melody = [
+          { note: 349.23, dur: 0.6 }, // F4
+          { note: 440.00, dur: 0.5 }, // A4
+          { note: 523.25, dur: 0.8 }, // C5
+          { note: 659.25, dur: 1.1 }, // E5
+          { note: 523.25, dur: 0.6 }, // C5
+          { note: 587.33, dur: 0.9 }, // D5
+          { note: 440.00, dur: 0.6 }, // A4
+          { note: 392.00, dur: 0.9 }, // G4
+
+          { note: 349.23, dur: 0.6 }, // F4
+          { note: 392.00, dur: 0.5 }, // G4
+          { note: 440.00, dur: 0.8 }, // A4
+          { note: 523.25, dur: 1.2 }, // C5
+          { note: 440.00, dur: 0.7 }, // A4
+          { note: 349.23, dur: 1.4 }, // F4
+          { note: 329.63, dur: 0.8 }, // E4
+          { note: 349.23, dur: 1.6 }  // F4
+        ];
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+        }
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      // Play a single sweet music-box/bell chime tone
+      playTone(freq, time, duration = 1.2, volume = 0.18) {
+        if (!this.ctx) return;
+        
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        // Gentle bell like combination
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, time);
+
+        // Soft envelope: fast attack, warm gentle decay
+        gain.gain.setValueAtTime(0.0001, time);
+        gain.gain.exponentialRampToValueAtTime(volume, time + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start(time);
+        osc.stop(time + duration);
+      }
+
+      // Harmonic Sparkle chime for taps
+      playSparkle() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const sparkles = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+        sparkles.forEach((f, i) => {
+          this.playTone(f, now + i * 0.05, 0.6, 0.09);
+        });
+      }
+
+      // Background Melody Loop
+      startMelody() {
+        this.init();
+        if (this.isPlaying) return;
+        this.isPlaying = true;
+        this.step = 0;
+
+        const loop = () => {
+          if (!this.isPlaying) return;
+          const current = this.melody[this.step % this.melody.length];
+          const now = this.ctx.currentTime;
+          
+          // Play fundamental tone
+          this.playTone(current.note, now, current.dur * 1.5, 0.12);
+          
+          // Play harmonic overtone for dreamy celeste feel
+          this.playTone(current.note * 2, now + 0.02, current.dur, 0.04);
+
+          // Soft bass accompaniment every 2 steps
+          if (this.step % 2 === 0) {
+            this.playTone(current.note / 2, now, 1.6, 0.08);
+          }
+
+          this.step++;
+          this.timer = setTimeout(loop, current.dur * 850);
+        };
+
+        loop();
+      }
+
+      stopMelody() {
+        this.isPlaying = false;
+        if (this.timer) clearTimeout(this.timer);
+      }
+
+      toggle() {
+        if (this.isPlaying) {
+          this.stopMelody();
+          return false;
+        } else {
+          this.startMelody();
+          return true;
+        }
+      }
+    }
+
+    const soundEngine = new RomanticAudioEngine();
+  </script>
+
+  <script>
+    /* =========================================================
+       CANVAS SYSTEM: Falling Yellow Petals, Golden Fireflies & Fireworks
+       ========================================================= */
+    const canvas = document.getElementById('petalsCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    // Particle types: Petals, Fireflies, Sparkle Sparks
+    const particles = [];
+    const MAX_PETALS = 55;
+    const MAX_FIREFLIES = 35;
+
+    class Petal {
+      constructor() {
+        this.reset(true);
+      }
+
+      reset(initial = false) {
+        this.x = Math.random() * width;
+        this.y = initial ? Math.random() * height : -20;
+        this.size = Math.random() * 9 + 8;
+        this.speedY = Math.random() * 1.4 + 0.8;
+        this.speedX = Math.random() * 1.2 - 0.6;
+        this.angle = Math.random() * Math.PI * 2;
+        this.angularSpeed = (Math.random() - 0.5) * 0.03;
+        this.flip = Math.random() * Math.PI;
+        this.flipSpeed = Math.random() * 0.03 + 0.01;
+        this.color = Math.random() > 0.4 ? '#facc15' : '#fef08a';
+        this.alpha = Math.random() * 0.5 + 0.45;
+      }
+
+      update() {
+        this.y += this.speedY;
+        this.x += Math.sin(this.angle) * 1.2 + this.speedX;
+        this.angle += this.angularSpeed;
+        this.flip += this.flipSpeed;
+
+        if (this.y > height + 25 || this.x < -30 || this.x > width + 30) {
+          this.reset(false);
+        }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        ctx.scale(Math.cos(this.flip), 1);
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+
+        // Draw organic yellow flower petal path
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(-this.size / 2, -this.size / 2, -this.size / 2, -this.size * 1.4, 0, -this.size * 1.7);
+        ctx.bezierCurveTo(this.size / 2, -this.size * 1.4, this.size / 2, -this.size / 2, 0, 0);
+        ctx.fill();
+
+        ctx.restore();
+      }
+    }
+
+    class Firefly {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.radius = Math.random() * 2.2 + 1;
+        this.alpha = Math.random();
+        this.pulseSpeed = Math.random() * 0.04 + 0.015;
+        this.vx = (Math.random() - 0.5) * 0.6;
+        this.vy = (Math.random() - 0.5) * 0.6;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.alpha += this.pulseSpeed;
+
+        if (this.x < 0) this.x = width;
+        if (this.x > width) this.x = 0;
+        if (this.y < 0) this.y = height;
+        if (this.y > height) this.y = 0;
+      }
+
+      draw() {
+        const glow = (Math.sin(this.alpha) + 1) / 2;
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(253, 224, 71, ${glow * 0.8})`;
+        ctx.shadowColor = '#facc15';
+        ctx.shadowBlur = 12;
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    class SparkExplosion {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.particles = [];
+        const count = 28;
+        for (let i = 0; i < count; i++) {
+          const rad = (Math.PI * 2 * i) / count;
+          const speed = Math.random() * 4 + 2;
+          this.particles.push({
+            x: this.x,
+            y: this.y,
+            vx: Math.cos(rad) * speed,
+            vy: Math.sin(rad) * speed,
+            alpha: 1,
+            size: Math.random() * 3 + 2,
+            decay: Math.random() * 0.025 + 0.015,
+            color: Math.random() > 0.3 ? '#facc15' : '#f59e0b'
+          });
+        }
+      }
+
+      update() {
+        this.particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.08; // mild gravity
+          p.alpha -= p.decay;
+        });
+        this.particles = this.particles.filter(p => p.alpha > 0);
+      }
+
+      draw() {
+        ctx.save();
+        this.particles.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = p.alpha;
+          ctx.shadowColor = '#fde047';
+          ctx.shadowBlur = 8;
+          ctx.fill();
+        });
+        ctx.restore();
+      }
+    }
+
+    // Populate arrays
+    const petals = Array.from({ length: MAX_PETALS }, () => new Petal());
+    const fireflies = Array.from({ length: MAX_FIREFLIES }, () => new Firefly());
+    let explosions = [];
+
+    function triggerExplosion(x, y) {
+      explosions.push(new SparkExplosion(x, y));
+    }
+
+    // Main Canvas Render Loop
+    function render() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Render Fireflies
+      fireflies.forEach(f => {
+        f.update();
+        f.draw();
+      });
+
+      // Render Petals
+      petals.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      // Render Fireworks / Tap Explosions
+      explosions.forEach(exp => {
+        exp.update();
+        exp.draw();
+      });
+      explosions = explosions.filter(exp => exp.particles.length > 0);
+
+      requestAnimationFrame(render);
+    }
+    render();
+  </script>
+
+  <script>
+    /* =========================================================
+       INTERACTION LOGIC: Opening Experience, Sound, & Flip Cards
+       ========================================================= */
+
+    const introScreen = document.getElementById('introScreen');
+    const mainContent = document.getElementById('mainContent');
+    const openSurpriseBtn = document.getElementById('openSurpriseBtn');
+    const musicToggleBtn = document.getElementById('musicToggleBtn');
+    const musicStatusText = document.getElementById('musicStatusText');
+    const tapBouquetBtn = document.getElementById('tapBouquetBtn');
+    const burstPetalsBtn = document.getElementById('burstPetalsBtn');
+
+    // Experience Unlock
+    openSurpriseBtn.addEventListener('click', (e) => {
+      soundEngine.startMelody();
+      soundEngine.playSparkle();
+
+      // Trigger grand fireworks
+      const rect = openSurpriseBtn.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      triggerExplosion(centerX, centerY);
+      triggerExplosion(centerX - 100, centerY - 60);
+      triggerExplosion(centerX + 100, centerY - 60);
+
+      // Smooth fade transition
+      introScreen.classList.add('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        introScreen.style.display = 'none';
+        mainContent.classList.remove('opacity-0');
+        mainContent.classList.add('opacity-100');
+        updateMusicLabel(true);
+      }, 700);
+    });
+
+    // Music Control
+    function updateMusicLabel(playing) {
+      if (playing) {
+        musicStatusText.textContent = 'Música: Activa ♥';
+        musicToggleBtn.classList.add('border-yellow-400', 'bg-yellow-500/20');
+      } else {
+        musicStatusText.textContent = 'Música: Pausada';
+        musicToggleBtn.classList.remove('border-yellow-400', 'bg-yellow-500/20');
+      }
+    }
+
+    musicToggleBtn.addEventListener('click', () => {
+      const isPlaying = soundEngine.toggle();
+      updateMusicLabel(isPlaying);
+    });
+
+    // Bouquet Tap Event
+    tapBouquetBtn.addEventListener('click', (e) => {
+      const rect = tapBouquetBtn.getBoundingClientRect();
+      triggerExplosion(rect.left + rect.width / 2, rect.top);
+      soundEngine.playSparkle();
+      createTapFlower(rect.left + rect.width / 2, rect.top - 20);
+    });
+
+    // Burst button action
+    burstPetalsBtn.addEventListener('click', (e) => {
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          const rx = Math.random() * (window.innerWidth - 100) + 50;
+          const ry = Math.random() * (window.innerHeight - 150) + 80;
+          triggerExplosion(rx, ry);
+          createTapFlower(rx, ry);
+          soundEngine.playSparkle();
+        }, i * 180);
+      }
+    });
+
+    // Card 3D Flip
+    window.toggleCard = function(el) {
+      const inner = el.querySelector('.flip-card-inner');
+      inner.classList.toggle('rotate-y-180');
+      soundEngine.playSparkle();
+    };
+
+    // Spawn animated flower emoji / vector elements anywhere clicked
+    function createTapFlower(x, y) {
+      const flowerEl = document.createElement('div');
+      flowerEl.className = 'tap-flower text-3xl select-none';
+      flowerEl.style.left = `${x}px`;
+      flowerEl.style.top = `${y}px`;
+
+      const flowerIcons = ['🌻', '✨', '💛', '🌼', '☀️'];
+      flowerEl.textContent = flowerIcons[Math.floor(Math.random() * flowerIcons.length)];
+
+      document.body.appendChild(flowerEl);
+      setTimeout(() => {
+        flowerEl.remove();
+      }, 1600);
+    }
+
+    // Touch & Click screen flower spawner
+    window.addEventListener('pointerdown', (e) => {
+      // Avoid interference with interactive elements
+      if (e.target.closest('button') || e.target.closest('.flip-card') || introScreen.style.display !== 'none') {
+        return;
+      }
+      createTapFlower(e.clientX, e.clientY);
+      triggerExplosion(e.clientX, e.clientY);
+      soundEngine.playSparkle();
+    });
+  </script>
+</body>
+</html>
